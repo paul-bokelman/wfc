@@ -165,20 +165,20 @@ func (w *WaveFunctionCollapse) Save() error {
 		for _, cell := range row {
 
 			// get the collapsed state image
-			asset, err := os.Open(fmt.Sprintf("assets/%v/%v.png", w.SetName, cell.getCollapsedState()))
+			file, err := os.Open(fmt.Sprintf("assets/%v/%v.png", w.SetName, cell.getCollapsedState()))
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			overlayImg, _, err := image.Decode(asset)
+			asset, _, err := image.Decode(file)
 			if err != nil {
 				log.Fatal(err)
 			}
 
 			// draw state
-			draw.Draw(img, overlayImg.Bounds().Add(image.Point{X: cell.Point.X * w.Resolution, Y: cell.Point.Y * w.Resolution}), overlayImg, image.Point{0, 0}, draw.Over)
+			draw.Draw(img, asset.Bounds().Add(image.Point{X: cell.Point.X * w.Resolution, Y: cell.Point.Y * w.Resolution}), asset, image.Point{0, 0}, draw.Over)
 
-			asset.Close()
+			file.Close()
 		}
 	}
 

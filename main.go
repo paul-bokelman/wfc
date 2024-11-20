@@ -33,20 +33,20 @@ func main() {
 		SetName: constraints.Name,
 		Constraints: constraints.Cells,
 		Resolution: constraints.Resolution,
-		Size: 20,
+		Size: 10,
 	}
 
 	wave.Build()
-	collapseError := wave.Collapse()
+	err = wave.Collapse()
 
-	if collapseError != nil {
-		fmt.Printf("Failed to collapse: %v", collapseError.Error())
+	if err != nil {
+		fmt.Printf("Failed to collapse: %v", err.Error())
 	}
 
-	saveError := wave.Save()
+	err = wave.Save()
 
-	if saveError != nil {
-		fmt.Printf("Failed to save: %v", saveError.Error())
+	if err != nil {
+		fmt.Printf("Failed to save: %v", err.Error())
 	}
 
 	fmt.Printf("Success")
