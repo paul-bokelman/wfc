@@ -1,4 +1,4 @@
-module wfc
+module github.com/paul-bokelman/wfc
 
 go 1.23.3
 
