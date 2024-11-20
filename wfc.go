@@ -1,4 +1,4 @@
-package lib
+package wfc
 
 import (
 	"errors"
@@ -11,13 +11,12 @@ import (
 	"math/rand/v2"
 	"os"
 	"slices"
-	"wfc/utils"
 )
 
 /* ---------------------------------- CELL ---------------------------------- */
 
 type Cell struct {
-	Point *utils.Point
+	Point *Point
 	State []string
 	Collapsed bool
 }
@@ -82,7 +81,7 @@ func (w *WaveFunctionCollapse) Build() {
 	for i := range w.Grid {
 		w.Grid[i] = make([]*Cell, w.Size)
 		for j := range w.Grid[i] {
-			w.Grid[i][j] = &Cell{Point: &utils.Point{X: i, Y: j}, State: states, Collapsed: false}
+			w.Grid[i][j] = &Cell{Point: &Point{X: i, Y: j}, State: states, Collapsed: false}
 		}
 	}
 }
