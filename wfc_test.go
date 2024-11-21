@@ -2,42 +2,18 @@ package wfc
 
 import (
 	"fmt"
-	"os"
 	"testing"
-
-	"gopkg.in/yaml.v3"
 )
 
-type ConstraintsSet struct {
-	Name       string           `yaml:"name"`
-	Resolution int              `yaml:"resolution"`
-	Cells      Constraints  `yaml:"cells"`
-}
-
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
-
 func TestWFC(t *testing.T) {
-    data, err := os.ReadFile("assets/road/constraints.yaml")
-    check(err)
+	wave := WaveFunctionCollapse{}
+	err := wave.Initialize(WaveFunctionCollapseConfig{AssetsPath: "assets/road", OutputPath: "compiled.png", GridSize: 10})
 
-	constraints := ConstraintsSet{}
-    
-	yaml_err := yaml.Unmarshal([]byte(data), &constraints)
-	check(yaml_err)
-
-	wave := WaveFunctionCollapse{
-		SetName: constraints.Name,
-		Constraints: constraints.Cells,
-		Resolution: constraints.Resolution,
-		Size: 10,
+	if err != nil {
+		t.Errorf("Failed to initialize wfc")
 	}
 
-	wave.Build()
-	err = wave.Collapse()
+	err =  wave.Collapse()
 
 	if err != nil {
 		t.Errorf("Failed to collapse: %v", err.Error())
