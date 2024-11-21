@@ -23,7 +23,7 @@ func TestWFC(t *testing.T) {
 
 	if err != nil {
 		t.Errorf("Failed to save: %v", err.Error())
-	}
+}
 
 	fmt.Println("Success")
 }
